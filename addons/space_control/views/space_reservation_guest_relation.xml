@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="space_reservation_guest_relation_view_tree" model="ir.ui.view">
+        <field name="name">space.reservation.guest_relation.view.tree</field>
+        <field name="model">space.reservation.guest_relation</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="product_id"/>
+                <field name="qty"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

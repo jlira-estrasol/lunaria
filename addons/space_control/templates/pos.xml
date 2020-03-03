@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="assets_backend_index" name="index pos ui" inherit_id="point_of_sale.index">
+        <xpath expr="//head" position="inside">
+            <link rel="stylesheet" href="/space_control/static/src/css/pos.css" id="space_control-pos-stylesheet"/>
+
+            <script type="text/javascript" src="/space_control/static/src/libs/js/qrcode.min.js"></script>
+        </xpath>
+    </template>
+
+    <template id="assets" inherit_id="point_of_sale.assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/space_control/static/src/js/pos.js"></script>
+            <script type="text/javascript" src="/space_control/static/src/js/screens.js"></script>
+        </xpath>
+    </template>
+</odoo>

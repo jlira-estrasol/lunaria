@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_space,access_space,model_space,base.group_user,1,0,0,0
+space_manager,space_manager,model_space,space_control.space_manager,1,1,1,1
+access_space_schedule,access_space_schedule,model_space_schedule,base.group_user,1,0,0,0
+space_schedule_manager,space_schedule_manager,model_space_schedule,space_control.space_manager,1,1,1,1
+access_pos_order_report,access_pos_order_report,model_pos_order_report,base.group_user,1,0,0,0
+access_space_reservation_guest_relation,access_space_reservation_guest_relation,model_space_reservation_guest_relation,base.group_user,1,1,1,1

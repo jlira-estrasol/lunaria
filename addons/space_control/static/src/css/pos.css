@@ -1,0 +1,24 @@
+.tr_schedule.selected {
+    background-color: hotpink;
+}
+
+.qrcode {
+   margin-top: 3px;
+}
+
+.logos {
+    margin: 3px;
+}
+
+.logos .l2 {
+    height: 64px;
+}
+
+.logos .l1 {
+    width: 128px;
+}
+
+table.schedules {
+    border-spacing: 5px;
+    width: 100%;
+}

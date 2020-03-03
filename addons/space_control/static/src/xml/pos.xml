@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="SpaceSchedule">
+        <table id="schedules_table" align="center" class="schedules">
+            <tr>
+                <th>Schedule</th>
+                <th>Availability</th>
+            </tr>
+        </table>
+        <div class='control-button'>
+            <input id="schedule_date" type="date"/>
+        </div>
+    </t>
+
+    <t t-extend="OrderReceipt">
+        <t t-jquery="div[class='orderlines']" t-operation="before">
+            <div class="ticket-info">
+                <div>
+                    ID: <t t-esc="order.key"></t>
+                </div>
+                <div>
+                    Schedule: <t t-esc="order.schedule_date"></t>
+                    <br/>
+                    <t t-foreach="order.schedule_ids" t-as="schedule">
+                        <t t-esc="schedule.space_name"></t>
+                            (
+                        <t t-esc="schedule.start_datetime"></t>
+                            )
+                        <br/>
+                    </t>
+                </div>
+            </div>
+            <br/>
+            <div>
+                <div align="center" class="qrcode">
+                    <div id="qrcode"></div>
+                </div>
+            </div>
+            <br/>
+        </t>
+        <t t-jquery="div[class='before-footer']" t-operation="before">
+            <div id="logos" align="center" class="logos">
+                <img id="logo_cultura_jalisco" src="/space_control/static/images/logo_cultura_jalisco.png" alt="logo_jalisco_cultura" class="l2"/>
+                <img id="logo_jalisco" src="/space_control/static/images/logo_jalisco.png" alt="logo_jalisco_gob" class="l2"/>
+            </div>
+            <div id="mc" align="center" class="logos">
+                <img id="mc_sistema_solar" src="/space_control/static/images/mc_sistema_solar.jpg" alt="logo_jalisco_gob" class="l1"/>
+            </div>
+        </t>
+    </t>
+</templates>

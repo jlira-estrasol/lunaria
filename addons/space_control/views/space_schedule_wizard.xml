@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="space_schedule_wizard_view_form" model="ir.ui.view">
+        <field name="name">space.schedule.wizard.view.form</field>
+        <field name="model">space.schedule.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Schedule">
+                <group>
+                    <field name="space_ids"/>
+                </group>
+                <group>
+                    <field name="start_datetime"/>
+                    <field name="duration" widget="float_time"/>
+                    <field name="stop_datetime"/>
+                </group>
+                <!-- TODO style -->
+                <group>
+                    <field name="mo"/>
+                    <field name="tu"/>
+                    <field name="we"/>
+                    <field name="th"/>
+                    <field name="fr"/>
+                    <field name="sa"/>
+                    <field name="su"/>
+                </group>
+                <footer>
+                    <button name="generate_schedules" type="object" string="Generate Schedules" class="oe_highlight"/>
+                    or
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="launch_schedule_wizard" name="Schedule" binding_model="space" res_model="space.schedule.wizard" view_mode="form" target="new"/>
+
+</odoo>

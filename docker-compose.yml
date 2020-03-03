@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  web:
+    image: odoo:13.0
+    restart: always
+    depends_on:
+      - db
+    volumes:
+      - web-data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons:/mnt/extra-addons
+      - ./backups:/mnt/backups
+    ports:
+      - "8069:8069"
+  db:
+    image: postgres:11.5
+    restart: always
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_USER=odoo
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+      - ./postgresql.conf:/var/lib/postgresql/data/pgdata/postgresql.conf
+volumes:
+  web-data:
+  db-data:

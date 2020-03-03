@@ -1,0 +1,5 @@
+<odoo>
+    <record id="space_manager" model="res.groups">
+        <field name="name">Space / Manager</field>
+    </record>
+</odoo>

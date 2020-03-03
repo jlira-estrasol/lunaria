@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="report_space_schedule_statistics_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <h1>Space Schedule Statistics</h1>
+                        <h2>From: <span t-field="doc.start_datetime"/>
+                        </h2>
+                        <h2>To: <span t-field="doc.stop_datetime"/>
+                        </h2>
+                        <t t-if="doc.space_id">
+                            <h2>Space: <span t-field="doc.space_id"/>
+                            </h2>
+                        </t>
+                        <t t-if="not doc.space_id">
+                            <h2>Space: All</h2>
+                        </t>
+
+                        <table class="table table-sm o_main_table">
+                            <thead>
+                                <tr>
+                                    <th name="th_space_id" class="text-left">Space</th>
+                                    <th name="th_start_datetime" class="text-left">Start datetime</th>
+                                    <th name="th_used_kid" class="text-right">Used kid</th>
+                                    <th name="th_used_adult" class="text-right">Used adult</th>
+                                    <th name="th_used_elder" class="text-right">Used elder</th>
+                                    <th name="th_used_student" class="text-right">Used student</th>
+                                    <th name="th_used_handicapped" class="text-right">Used handicapped</th>
+                                    <th name="th_used" class="text-right">Used</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.schedule_ids" t-as="schedule">
+                                    <tr>
+                                        <td class="text-left">
+                                            <span t-field="schedule.space_id"/>
+                                        </td>
+                                        <td class="text-left">
+                                            <span t-field="schedule.start_datetime"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="schedule.used_kid"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="schedule.used_adult"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="schedule.used_elder"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="schedule.used_student"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="schedule.used_handicapped"/>
+                                        </td>
+                                        <td class="text-right">
+                                            <span t-field="schedule.used"/>
+                                        </td>
+                                    </tr>
+                                </t>
+                                <tr>
+                                    <th name="th_total" class="text-right">TOTALS</th>
+                                    <th></th>
+                                    <th name="th_used_kid_total" class="text-right">
+                                        <t t-esc="sum(schedule.used_kid for schedule in doc.schedule_ids)"/>
+                                    </th>
+                                    <th name="th_used_adult_total" class="text-right">
+                                        <t t-esc="sum(schedule.used_adult for schedule in doc.schedule_ids)"/>
+                                    </th>
+                                    <th name="th_used_elder_total" class="text-right">
+                                        <t t-esc="sum(schedule.used_elder for schedule in doc.schedule_ids)"/>
+                                    </th>
+                                    <th name="th_used_student_total" class="text-right">
+                                        <t t-esc="sum(schedule.used_student for schedule in doc.schedule_ids)"/>
+                                    </th>
+                                    <th name="th_used_handicapped_total" class="text-right">
+                                        <t t-esc="sum(schedule.used_handicapped for schedule in doc.schedule_ids)"/>
+                                    </th>
+                                    <th name="th_used_total" class="text-right">
+                                        <t t-esc="sum(schedule.used for schedule in doc.schedule_ids)"/>
+                                    </th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <report id="report_space_schedule_statistics" model="space.schedule.statistics" string="Space Schedule Statistics" name="space_control.report_space_schedule_statistics_view" file="space_control.report_space_schedule_statistics" report_type="qweb-pdf" />
+</odoo>

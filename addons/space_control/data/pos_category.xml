@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="pos_category_ticket" model="pos.category">
+        <field name="name">Ticket</field>
+    </record>
+    <record id="pos_category_reservation" model="pos.category">
+        <field name="name">Reservation</field>
+    </record>
+</odoo>

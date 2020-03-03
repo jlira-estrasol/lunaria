@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="space_reservation_view_form" model="ir.ui.view">
+        <field name="name">space.reservation.view.form</field>
+        <field name="model">space.reservation</field>
+        <field name="arch" type="xml">
+            <form string="Reservation">
+                <h2>
+                    <group col="4">
+                        <field name="partner_id"/>
+                        <field name="product_id"/>
+                        <field name="price"/>
+                    </group>
+                </h2>
+                <group>
+                    <field name="schedule_dummy_ids">
+                        <tree delete="false" create="false" editable="bottom">
+                            <field name="space_id"/>
+                            <field name="start_datetime"/>
+                            <field name="schedule_id"/>
+                            <field name="used"/>
+                        </tree>
+                    </field>
+                </group>
+                <group>
+                    <field name="space_ids" widget="many2many_tags"/>
+                    <field name="subproduct_ids"/>
+                </group>
+                <footer>
+                    <button name="make_reservation" type="object" string="Make Reservation" class="oe_highlight"/>
+                    or
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="pos_order_reservation_wizard_action" name="Reservation" res_model="space.reservation" view_mode="form" target="new"/>
+
+    <menuitem id="pos_order_reservation_wizard_action_menu" name="Reservation" action="pos_order_reservation_wizard_action" parent="point_of_sale.menu_point_of_sale"/>
+</odoo>

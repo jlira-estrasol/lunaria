@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="pos_order_use_wizard_view_form" model="ir.ui.view">
+        <field name="name">pos.order.use_wizard.view.form</field>
+        <field name="model">pos.order.use_wizard</field>
+        <field name="arch" type="xml">
+            <form string="Use ticket">
+                <script>
+                    var mau_button = document.getElementsByName("mark_as_used")[0];
+                    document.getElementsByName("key").forEach(function (item, index) {
+                        if (item.tagName == 'INPUT') {
+                            item.oninput = function () {
+                                if (item.value.length >= 20) {
+                                    mau_button.click();
+                                }
+                            }
+                        }
+                    });
+                </script>
+                <group col="5" attrs="{'invisible': [('prev_order_id', '=', False)]}">
+                    <div colspan="1">
+                        <div attrs="{'invisible': [('error', '!=', False)]}">
+                            <span class="fa fa-check-circle fa-10x" style="color: #00e676;"/>
+                        </div>
+                        <div attrs="{'invisible': [('error', '=', False)]}">
+                            <span class="fa fa-times-circle fa-10x" style="color: #ff1744;"/>
+                        </div>
+                    </div>
+                    <div colspan="4">
+                        <field name="prev_ticket_ids" nolabel="1" attrs="{'invisible': [('error', '!=', False)]}">
+                            <tree>
+                                <field name="product_id"/>
+                                <field name="qty"/>
+                            </tree>
+                        </field>
+                        <div attrs="{'invisible': [('error', '=', False)]}" style="color: #ff1744;">
+                            <field name="error" nolabel="1"/>
+                            <field name="prev_order_id"/>
+                        </div>
+                    </div>
+                </group>
+                <h1>
+                    <group>
+                        <field name="schedule_to_use_id" options="{'no_create': True, 'no_create_edit':True}"/>
+                    </group>
+                    <group>
+                        <field name="key" default_focus="1"/>
+                        <field name="order_id" options="{'no_create': True, 'no_create_edit':True}" invisible="1"/>
+                    </group>
+                </h1>
+                <!-- <group col="4">
+                    <field name="schedule_ids">
+                        <tree>
+                            <field name="space_id"/>
+                            <field name="start_datetime"/>
+                        </tree>
+                    </field>
+                    <field name="schedule_used_ids">
+                        <tree>
+                            <field name="space_id"/>
+                            <field name="start_datetime"/>
+                        </tree>
+                    </field>
+                </group>
+                <field name="ticket_ids">
+                    <tree>
+                        <field name="product_id"/>
+                        <field name="qty"/>
+                    </tree>
+                </field> -->
+                <footer>
+                    <button name="mark_as_used" type="object" string="Mark as used" class="oe_highlight"/>
+                    or
+                    <button special="cancel" string="Cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="pos_order_use_wizard_action" name="Use ticket" res_model="pos.order.use_wizard" view_mode="form" target="new"/>
+
+    <menuitem id="pos_order_use_wizard_action_menu" name="Use ticket" action="pos_order_use_wizard_action" parent="point_of_sale.menu_point_of_sale" />
+</odoo>

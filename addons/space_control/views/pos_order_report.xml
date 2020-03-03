@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record id="view_pos_order_report_graph" model="ir.ui.view">
+        <field name="name">pos.order.report.graph</field>
+        <field name="model">pos.order.report</field>
+        <field name="arch" type="xml">
+            <graph string="POS Orders" type="bar">
+                <field type="row" name="date" interval="day"/>
+                <field type="measure" name="qty"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="pos_order_report_view_dashboard" model="ir.ui.view">
+        <field name="name">pos.order.report.view.dashboard</field>
+        <field name="model">pos.order.report</field>
+        <field name="arch" type="xml">
+            <dashboard>
+                <view type="graph" ref="view_pos_pos_graph"/>
+                <group>
+                    <aggregate name="price_subtotal_all_orders" string="Untaxed Total" field="price_subtotal" widget="monetary"/>
+                    <aggregate name="order_id_confirmed_orders" field="order_id" string="Orders"/>
+                    <aggregate name="tickets_sold" field="qty" string="Tickets"/>
+                </group>
+                <group>
+                    <widget name="pie_chart" title="Tickets" attrs="{'groupby': 'product_id', 'measure': 'qty'}"/>
+                    <widget name="pie_chart" title="Total" attrs="{'groupby': 'product_id', 'measure': 'price_subtotal'}"/>
+                </group>
+            </dashboard>
+        </field>
+    </record>
+
+    <act_window id="pos_dashboard_action" name="POS Order Report" res_model="pos.order.report" view_mode="dashboard" />
+
+    <menuitem id="pos_dashboard_menu" name="Dashboard" action="pos_dashboard_action" parent="point_of_sale.menu_point_rep" />
+
+</odoo>

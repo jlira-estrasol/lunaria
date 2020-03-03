@@ -1,0 +1,67 @@
+getenforce 0
+
+sudo apt install vim git unzip docker docker-compose
+DOCKER_HOST=127.0.0.1
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -aG docker lunario
+
+wget https://raw.githubusercontent.com/AfroMonkey/odoo-docker/master/templates/13.0/docker-compose.yml
+wget https://raw.githubusercontent.com/AfroMonkey/odoo-docker/master/templates/13.0/config/odoo.conf
+vim docker-compose.yml 
+mv odoo.conf config/
+vim config/odoo.conf 
+vim db-data/postgresql.conf
+sudo docker-compose up -d
+
+docker ps 
+docker logs lunaria_db_1
+sudo docker-compose down && docker-compose up -d
+
+
+docker exec -it lunaria_db_1 bash
+chown odoo:odoo -R /var/lib/odoo
+
+
+
+
+
+#cd addons/
+#git clone --single-branch -b 13.0 https://github.com/AfroMonkey/space_controller
+#git clone --single-branch -b 13.0 https://github.com/AfroMonkey/space_control
+
+sudo ufw allow 8069/tcp
+sudo ufw enable
+python
+python -m SimpleHTTPServer 8000
+sudo ufw allow 8000/tcp
+python -m SimpleHTTPServer 8000
+sudo ufw allow 8069/tcp
+curl 0.0.0.0:8069
+curl 127.0.0.0:8069
+
+
+sudo chown -R lunario addons/ backups/ config/
+sudo chgrp -R lunario addons/ backups/ config/
+cd ../addons/
+git clone --single-branch -b 13.0 https://github.com/AfroMonkey/space_control
+wget https://apps.odoo.com/loempia/download/auto_backup/13.0.0.1/2MmsFi7CaQKliS9hb4HTYS.zip
+
+vim space_control/__manifest__.py 
+chmod 777 backups/
+cd dockers/lunaria/addons/space_control/
+vim static/src/js/pos.js 
+vim static/src/js/screens.js 
+
+docker exec -it lunaria_db_1 psql -U odoo
+docker exec -it lunaria_db_1 psql -d lunaria -U odoo
+cd dockers/lunaria/addons/space_control/static/src/xml/
+vim pos.xml 
+
+cd dockers/lunaria/addons/space_control/
+cd ../../config/
+vim odoo.conf 
+docker-compose restart
+exit
+cd dockers/lunaria/addons/space_control/
+
